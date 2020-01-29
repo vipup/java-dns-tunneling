@@ -36,7 +36,7 @@ public class DNSTunnelServer implements Runnable, DNSTunnelConstants {
 
     public static void main(String[] args) {
         // start a server instance
-        DNSTunnelServer server = DNSTunnelServer.start(DEFAULT_PORT);
+        DNSTunnelServer server = DNSTunnelServer.start(args.length==1?Integer.parseInt( args[0]):DEFAULT_PORT);
 
         // read commands
         try (BufferedReader reader = new BufferedReader(
