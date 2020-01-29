@@ -1,3 +1,4 @@
+
 interface DNSTunnelConstants {
 
     static enum QType {

