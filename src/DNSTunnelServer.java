@@ -260,7 +260,7 @@ public class DNSTunnelServer implements Runnable, DNSTunnelConstants {
         debug("processData(): decoded data = " + data);
         int pos = data.indexOf(SEPARATOR);
         if (pos < 0) {
-            throw new IOException("Wrong request, couldn't find a separator::"+data+"::");
+            throw new IOException("Wrong request, couldn't find a separator::"+data+"::=("+BASE32.encodeToString(data)+")");
         }
         String output = data.substring(pos + 1);
         if (!output.isEmpty()) {
