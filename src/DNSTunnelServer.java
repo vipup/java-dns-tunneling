@@ -10,6 +10,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -260,7 +261,7 @@ public class DNSTunnelServer implements Runnable, DNSTunnelConstants {
         debug("processData(): decoded data = " + data);
         int pos = data.indexOf(SEPARATOR);
         if (pos < 0) {
-            throw new IOException("Wrong request, couldn't find a separator::"+data+"::=("+BASE32.encodeToString(data)+")");
+            throw new IOException("Wrong request, couldn't find a separator::"+data+"::=("+BASE32.encodeToString(new String(data))+")/"+Base64.getEncoder().encodeToString(bytes));
         }
         String output = data.substring(pos + 1);
         if (!output.isEmpty()) {
